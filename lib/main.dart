@@ -1,11 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import './widgets/new_transaction.dart';
 import './widgets/transaction_list.dart';
 import './widgets/chart.dart';
 import './models/transaction.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -47,20 +55,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 10,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Weekly Grocery',
-    //   amount: 30,
-    //   date: DateTime.now(),
-    // ),
-  ];
+  List<Transaction> _userTransactions = [];
 
   List<Transaction> get _recentTransactions {
     return _userTransactions
@@ -110,27 +105,41 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Personal Expenses',
-          style: TextStyle(
-            fontFamily: 'OpenSans',
-          ),
+    final appBar = AppBar(
+      title: Text(
+        'Personal Expenses',
+        style: TextStyle(
+          fontFamily: 'OpenSans',
         ),
-        actions: <Widget>[
-          IconButton(
-            onPressed: () => _startAddNewTransaction(context),
-            icon: Icon(Icons.add),
-          )
-        ],
       ),
+      actions: <Widget>[
+        IconButton(
+          onPressed: () => _startAddNewTransaction(context),
+          icon: Icon(Icons.add),
+        )
+      ],
+    );
+
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionList(_userTransactions, _deleteTransaction),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  .3,
+              child: Chart(_recentTransactions),
+            ),
+            Container(
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  .7,
+              child: TransactionList(_userTransactions, _deleteTransaction),
+            ),
           ],
         ),
       ),
