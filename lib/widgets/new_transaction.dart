@@ -15,6 +15,21 @@ class _NewTransactionState extends State<NewTransaction> {
   final _amountContoller = TextEditingController();
   DateTime _selectedDate;
 
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant NewTransaction oldWidget) {
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   void _submitData() {
     final enteredTitle = _titleContoller.text;
     var enteredAmount = double.tryParse(_amountContoller.text);
