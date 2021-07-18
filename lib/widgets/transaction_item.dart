@@ -20,21 +20,21 @@ class TransactionItem extends StatefulWidget {
 }
 
 class _TransactionItemState extends State<TransactionItem> {
-  Color _bgColor;
+  // Color _bgColor;
 
-  @override
-  void initState() {
-    super.initState();
+  // @override
+  // void initState() {
+  //   super.initState();
 
-    const availableColors = [
-      Colors.red,
-      Colors.black,
-      Colors.purple,
-      Colors.pink,
-    ];
+  //   const availableColors = [
+  //     Colors.red,
+  //     Colors.black,
+  //     Colors.purple,
+  //     Colors.pink,
+  //   ];
 
-    _bgColor = availableColors[Random().nextInt(4)];
-  }
+  //   _bgColor = availableColors[Random().nextInt(4)];
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class _TransactionItemState extends State<TransactionItem> {
       ),
       child: ListTile(
         leading: CircleAvatar(
-          backgroundColor: _bgColor,
+          // backgroundColor: _bgColor,
           radius: 30,
           child: Padding(
             padding: EdgeInsets.all(6),
